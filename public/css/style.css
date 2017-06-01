@@ -1,0 +1,42 @@
+body {
+  color: white;
+}
+.active {
+  font-weight: bold;
+}
+#main {
+  display: flex;
+  flex-flow: column;
+}
+#nav {
+  background: black;
+  display: flex;
+  align-items: center;
+}
+.link, #nav h2 {
+  margin-left: 3rem;
+}
+.link:active, .link:visited, .link:link, .link:hover {
+  text-decoration: none;
+  color: #0077CC;
+}
+.section {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  background: green;
+}
+.section .form form {
+  margin-top: 1rem;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+.section .form form input{
+  padding: .5rem;
+}
+.section .form form button{
+  margin-top: .5rem;
+  width: 100%;
+  padding: .5rem;
+}
