@@ -7,6 +7,11 @@ import About from './components/About';
 import Examples from './components/Examples';
 
 
+import 'foundation-sites/dist/js/foundation.min.js';
+import 'style-loader!css-loader!./styles/app.css';
+
+$(document).foundation();
+
 ReactDOM.render(
   <Router history={hashHistory}>
     <Route path="/" component={Main}>

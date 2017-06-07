@@ -3,6 +3,7 @@ import WeatherForm from './WeatherForm';
 import WeatherMessage from './WeatherMessage';
 // import openWeatherMap from '../api/openWeatherMap.js';
 const openWeatherMap = require('../api/openWeatherMap.js');
+import ErrorModal from './ErrorModal';
 
 class Weather extends Component {
   constructor(props) {
@@ -10,22 +11,23 @@ class Weather extends Component {
     this.state = {
       temp: '',
       location: '',
-      isLoading: false
+      isLoading: false,
+      errorMessage: undefined
     }
   }
   handleSearch(location) {
     var that = this;
-    this.setState({isLoading: true})
+    this.setState({isLoading: true, errorMessage: undefined})
     openWeatherMap.getTemp(location).then((temp) => {
       that.setState({
         location,
         temp,
         isLoading: false
       });
-    }).catch((errorMessage) => {
-      alert(errorMessage);
+    }).catch((e) => {
       that.setState({
-        isLoading: false
+        isLoading: false,
+        errorMessage: e.message
       });
     });
   }
@@ -33,19 +35,28 @@ class Weather extends Component {
     var { isLoading, temp, location } = this.state;
 
     if (isLoading) {
-      return <h3>Fetching Weather...</h3>;
+      return <h3 className="text-center">Fetching Weather...</h3>;
     } else if (temp && location) {
       return (
         <WeatherMessage temp={temp} location={location}/>
       );
     }
   }
+  renderError() {
+    var { errorMessage } = this.state;
+    if (typeof errorMessage === 'string') {
+      return (
+        <ErrorModal message={errorMessage} />
+      );
+    }
+  }
   render() {
     return (
       <div className="section">
-        <h3>Get Weather</h3>
+        <h1 className="text-center page-title">Get Weather</h1>
         <WeatherForm onSearch={this.handleSearch.bind(this)}/>
         {this.renderMessage()}
+        {this.renderError()}
       </div>
     );
   }
