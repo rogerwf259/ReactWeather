@@ -4,7 +4,14 @@ import { Link, IndexLink } from 'react-router';
 class Nav extends Component {
     onSearch(e) {
       e.preventDefault();
-      alert('Not yet wired up');
+
+      var location = this.refs.search.value;
+      var econdedLocation = encodeURIComponent(location);
+
+      if (location.length > 0) {
+        this.refs.search.value = '';
+        window.location.hash = `#/?location=${econdedLocation}`;
+      }
     }
     render() {
     return (
@@ -25,10 +32,14 @@ class Nav extends Component {
           </ul>
         </div>
         <div className="top-bar-right">
-          <form onSubmit={this.onSearch}>
+          <form onSubmit={this.onSearch.bind(this)}>
             <ul className="menu">
               <li>
-                <input type="search" placeholder="Search weather by city" />
+                <input
+                  type="search"
+                  ref="search"
+                  placeholder="Search weather by city"
+                />
               </li>
               <li>
                 <input type="submit" className="button" value="Get Weather" />

@@ -8,7 +8,7 @@ import Examples from './components/Examples';
 
 
 import 'foundation-sites/dist/js/foundation.min.js';
-import 'style-loader!css-loader!./styles/app.css';
+import 'style-loader!css-loader!sass-loader!./styles/app.scss';
 
 $(document).foundation();
 
